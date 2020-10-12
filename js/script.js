@@ -46,4 +46,49 @@ document.getElementById('test-button').addEventListener('click', function(){
     targetArticle.classList.add('active');
   }
   
+  const optArticleSelector = '.post',
+  optTitleSelector = '.post-title',
+  optTitleListSelector = '.titles',
+
+  function generateTitleLinks(){
+
+    /* remove contents of titleList */
+
+    const titleList = document.querySelector(optTitleListSelector);
+    let html = '';
   
+    /* for each article */
+
+    const articles = document.querySelectorAll(optArticleSelector + customSelector);
+    for (const article of articles) {
+  
+      /* get the article id */
+
+      const articleId = article.getAttribute('id');
+  
+      /* find the title element */
+
+
+  
+      /* get the title from the title element */
+
+      const articleTitle = article.querySelector(optTitleSelector).innerHTML;
+  
+      /* create HTML of the link */
+
+      const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+      console.log('linkHTML: ', linkHTML);
+  
+      /* insert link into titleList */
+
+      html = html + linkHTML;
+  
+  }
+  
+  generateTitleLinks();
+
+  optArticleTagsSelector = '.post-tags .list',
+  optArticleAuthorSelector = '.post-author',
+  optTagsListSelector = '.list .tags',
+  optCloudClassCount = 5,
+  optCloudClassPrefix = 'tag-size-'; 
