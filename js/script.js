@@ -85,3 +85,52 @@ link.addEventListener('click', titleClickHandler);
 }
 
 generateTitleLinks();
+
+function generateTags() {
+    const articles = document.querySelectorAll(optArticleSelector);
+    for (const article of articles) {
+
+        // szukamy listy tagów w danym artykule (na tym etapie jest ona pusta)
+        const tagsList = article.querySelector('.list-horizontal');
+
+        // ustalamy zawartość atrybutu data-tags (np. 'code news')
+        const articleTags = article.getAttribute('data-tags');
+
+        // konwertujemy nasz tekst (np. 'code news test') na tablicę (np. ['code', 'news', 'test'])
+        const tags = articleTags.split(' ');
+
+        let html = '';
+
+        for(const tag of tags) {
+            // linkHTML = <li><a href="#tag-code"><span>code</span></a></li>
+            const linkHTML = '<li><a href="#tag-' + tag + '"><span>' + tag + '</span></a></li>';
+            html = html + linkHTML;
+        }
+
+        tagsList.innerHTML = html;
+    }
+}
+
+generateTags();
+
+
+function generateAuthors() {
+    debugger;
+    const articles = document.querySelectorAll(optArticleSelector);
+    for (const article of articles) {
+
+        // szukamy paragrafu autora w danym artykule (na tym etapie jest ona pusta)
+        const authorWrapper = article.querySelector('.post-author');
+
+        // ustalamy zawartość atrybutu data-author (np. 'Marion Berry')
+        const author = article.getAttribute('data-author');
+
+        // przygotowuejmy link do autora
+        const linkHTML = '<a href="#author-' + author + '"><span>' + author + '</span></a>';
+        //<a href="#author-Marion Berry"><span>Martion Berry</span></a>';
+
+        authorWrapper.innerHTML = linkHTML;
+    }
+}
+
+generateAuthors();
