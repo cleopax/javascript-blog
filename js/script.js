@@ -115,7 +115,6 @@ generateTags();
 
 
 function generateAuthors() {
-    debugger;
     const articles = document.querySelectorAll(optArticleSelector);
     for (const article of articles) {
 
@@ -239,4 +238,60 @@ authorsList.innerHTML = html;
 } 
 
 generateRightAuthors();
+
+// zliczanie tagów
+
+let tagsPaper = ();
+if(!tagsPaper[tag]) {
+    tagsPaper[tag] = 1;
+  } else {
+    tagsPaper[tag]++;
+  }
+  console.log(tagsPaper);
+
+function generateTags()  
+  
+  const tagsParams = calculateTagsParams(tagsPaper);
+  console.log('tagsParams:', tagsParams)
+
+  function calculateTagsParams(tags) {
+    const params = {
+      max: 0,
+      min: 999999
+    };
+    for (let tag in tags) {
+      console.log(tag + ' is used ' + tags[tag] + ' times');
+      if (tags[tag] > params.max) {
+        params.max = tags[tag];
+      }
+      if (tags[tag] < params.min) {
+        params.min = tags[tag];
+      }
+    }
+    return params;
+  }
+
+  function calculateTagClass(count, params) {
+ 
+    const normalizedCount = count - params.min;
+    const normalizedMax = params.max - params.min;
+    const percentage = normalizedCount / normalizedMax;
+    const classNumber = Math.floor(percentage * (optCloudClassCount - 1) + 1);
+    return classNumber;
+  }
+
+  const tagLinkHTML = '<li>' + calculateTagClass(tagsPaper[tag], tagsParam) + '</li>';
+  console.log('tagLinkHTML:', tagLinkHTML);
+
+  tagsPaperHTML += tagLinkHTML;
+
+let tagsPaperHTML = '';
+
+for(let tag in tagsPaper){
+  tagsPaperHTML += tag + ' (' + tagsPaper[tag] + ') ';
+}
+
+tagList.innerHTML = tagsPaperHTML;
+
+
 
