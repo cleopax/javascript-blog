@@ -134,3 +134,109 @@ function generateAuthors() {
 }
 
 generateAuthors();
+
+function tagClickHandler() {
+  const clickedElement = this;
+
+  const href = this.getAttribute('href'); // #tag-news
+  const tag = href.replace('#tag-', ''); // news
+
+  generateTitleLinks('[data-tags~="' + tag + '"]'); //[data-tags~="news"]
+}
+
+function addClickListenerToTags() {
+  const links = document.querySelectorAll('a[href^="#tag-');
+  for(const link of links) {
+      link.addEventListener('click', tagClickHandler)
+  }
+}
+
+addClickListenerToTags();
+
+function authorClickHandler() {
+  const clickedElement = this;
+
+  const href = this.getAttribute('href'); // #author-Marion Berry
+  const author = href.replace('#author-', ''); // Marion Berry
+
+  generateTitleLinks('[data-author="' + author + '"]'); //[data-author="Marion Berry"]
+}
+
+
+function addClickListenerToAuthors() {
+  const links = document.querySelectorAll('a[href^="#author-');
+  for(const link of links) {
+      link.addEventListener('click', authorClickHandler)
+  }
+}
+
+addClickListenerToAuthors();
+
+function resetClickHandler() {
+  generateTitleLinks();
+}
+
+const resetBtn = document.querySelector('#reset-btn');
+resetBtn.addEventListener('click', resetClickHandler);
+
+function generateTagsCloud() {
+const tagsList = document.querySelector('.sidebar .tags');
+tagsList.innerHTML = '';
+
+// utworzenie pustej listy
+const tagsPaper = [];
+
+const articles = document.querySelectorAll('.post');
+for(const article of articles) {
+    const tags = article.getAttribute('data-tags'); //design tutorials
+    const tagsArray = tags.split(' '); //['design', 'tutorials']
+
+    for(const tag of tagsArray) {
+        if(!tagsPaper.includes(tag)) {
+            tagsPaper.push(tag);
+        }
+    }
+}
+
+let html = '';
+for(const tag of tagsPaper) {
+  const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
+  html = html + linkHTML;
+}
+
+tagsList.innerHTML = html;
+
+console.log(tagsPaper);
+} 
+
+generateTagsCloud();
+
+
+function generateRightAuthors() {
+
+const authorsList = document.querySelector('.sidebar .authors');
+authorsList.innerHTML = '';
+
+// utworzenie pustej listy
+const authorsPaper = [];
+
+const articles = document.querySelectorAll('.post');
+for(const article of articles) {
+    const author = article.getAttribute('data-author'); //Marion Berry
+ 
+    if(!authorsPaper.includes(author)) {
+      authorsPaper.push(author);
+    }
+}
+
+let html = '';
+for(const author of authorsPaper) {
+  const linkHTML = '<li><a href="#author-' + author + '">' + author + '</a></li>';
+  html = html + linkHTML;
+}
+
+authorsList.innerHTML = html;
+} 
+
+generateRightAuthors();
+
