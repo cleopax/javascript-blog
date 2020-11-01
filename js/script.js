@@ -1,3 +1,7 @@
+const templates = {
+  articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML)
+}
+
 const optArticleSelector = '.post',
 optTitleSelector = '.post-title',
 optTitleListSelector = '.titles',
@@ -70,6 +74,8 @@ const articleTitle = article.querySelector(optTitleSelector).innerHTML;
 /* create HTML of the link */
 
 const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+const linkHTMLData = {id: articleId, title: articleTitle};
+const linkHTML = templates.articleLink(linkHTMLData);
 
 /* insert link into titleList */
 
@@ -294,4 +300,11 @@ for(let tag in tagsPaper){
 tagList.innerHTML = tagsPaperHTML;
 
 
-
+const allTagsData = {tags: []};
+allTagsData.tags.push({
+  tag: tag,
+  count: allTags[tag],
+  className: calculateTagClass(allTags[tag], tagsParams)
+});
+tagList.innerHTML = templates.tagCloudLink(allTagsData)
+console.log(allTagsData)
